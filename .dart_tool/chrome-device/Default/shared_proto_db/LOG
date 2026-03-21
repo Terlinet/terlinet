@@ -1,6 +1,4 @@
-2026/03/21-16:27:45.224 4ac0 Reusing MANIFEST C:\Users\tertu\AppData\Local\Temp\flutter_tools.17d66cec\flutter_tools_chrome_device.f8fc437c\Default\shared_proto_db/MANIFEST-000001
-2026/03/21-16:27:45.225 4ac0 Recovering log #3
-2026/03/21-16:27:45.228 4ac0 Reusing old log C:\Users\tertu\AppData\Local\Temp\flutter_tools.17d66cec\flutter_tools_chrome_device.f8fc437c\Default\shared_proto_db/000003.log 
-2026/03/21-16:28:13.816 4ac0 Level-0 table #5: started
-2026/03/21-16:28:13.828 4ac0 Level-0 table #5: 136463 bytes OK
-2026/03/21-16:28:13.832 4ac0 Delete type=0 #3
+2026/03/21-16:48:47.425 1640 Reusing MANIFEST C:\Users\tertu\AppData\Local\Temp\flutter_tools.bbbf5e6c\flutter_tools_chrome_device.7b147122\Default\shared_proto_db/MANIFEST-000001
+2026/03/21-16:48:47.426 1640 Recovering log #4
+2026/03/21-16:48:47.426 1640 Reusing old log C:\Users\tertu\AppData\Local\Temp\flutter_tools.bbbf5e6c\flutter_tools_chrome_device.7b147122\Default\shared_proto_db/000004.log 
+2026/03/21-16:48:47.426 1640 Delete type=0 #3
