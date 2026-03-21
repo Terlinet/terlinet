@@ -1,2 +1,0 @@
-D:/ANDROID_STUDIO/terlinet_api/build/.cxx/RelWithDebInfo/651fyj16/x86_64/CMakeFiles/edit_cache.dir
-D:/ANDROID_STUDIO/terlinet_api/build/.cxx/RelWithDebInfo/651fyj16/x86_64/CMakeFiles/rebuild_cache.dir

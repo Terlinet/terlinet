@@ -20,6 +20,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "audio_session",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.1.25",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "bip39",
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/bip39-1.0.6",
       "packageUri": "lib/",
@@ -110,6 +116,12 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "fixnum",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/flutter_windows_3.32.7-stable/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -188,6 +200,24 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "just_audio",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio-0.9.46",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "just_audio_platform_interface",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_platform_interface-4.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "just_audio_web",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_web-0.4.16",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "leak_tracker",
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.9",
       "packageUri": "lib/",
@@ -236,6 +266,42 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "path_provider",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider-2.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "path_provider_android",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.19",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "path_provider_foundation",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "path_provider_linux",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "path_provider_platform_interface",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_platform_interface-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "path_provider_windows",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "petitparser",
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-7.0.2",
       "packageUri": "lib/",
@@ -246,6 +312,12 @@
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/pinenacl-0.6.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "platform",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "plugin_platform_interface",
@@ -270,6 +342,12 @@
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/rational-2.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "rxdart",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/rxdart-0.28.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
@@ -312,6 +390,12 @@
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "synchronized",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/synchronized-3.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
     },
     {
       "name": "term_glyph",
@@ -380,6 +464,12 @@
       "languageVersion": "3.8"
     },
     {
+      "name": "uuid",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.5.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -393,13 +483,19 @@
     },
     {
       "name": "web",
-      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.5.1",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.1",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "web_socket_channel",
-      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.4.5",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "xdg_directories",
+      "rootUri": "file:///C:/Users/tertu/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },

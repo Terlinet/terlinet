@@ -1,1 +1,0 @@
-com.solana.solana_mobile_client
