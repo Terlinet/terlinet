@@ -1,0 +1,2 @@
+D:/ANDROID_STUDIO/terlinet_api/build/.cxx/RelWithDebInfo/651fyj16/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/ANDROID_STUDIO/terlinet_api/build/.cxx/RelWithDebInfo/651fyj16/armeabi-v7a/CMakeFiles/rebuild_cache.dir

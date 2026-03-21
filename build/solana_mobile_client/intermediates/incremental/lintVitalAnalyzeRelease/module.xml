@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="C:\Users\tertu\AppData\Local\Pub\Cache\hosted\pub.dev\solana_mobile_client-0.1.2\android"
+    name=":solana_mobile_client"
+    type="LIBRARY"
+    maven="com.solana.solana_mobile_client:solana_mobile_client:1.0-SNAPSHOT"
+    agpVersion="8.7.3"
+    buildFolder="D:\ANDROID_STUDIO\terlinet_api\build\solana_mobile_client"
+    bootClassPath="C:\Users\tertu\AppData\Local\Android\sdk\platforms\android-31\android.jar;C:\Users\tertu\AppData\Local\Android\sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-31"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

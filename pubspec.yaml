@@ -1,0 +1,33 @@
+name: terlinet
+description: App TerlineT conectado ao servidor FastAPI e Carteira Metamask.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.1.0
+  solana: ^0.30.0
+  solana_mobile_client: ^0.1.2
+  flutter_web3: ^2.1.0
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/logo.jpg"
+  adaptive_icon_background: "#000000"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/peruibe2.jpeg
+    - assets/logo.jpg
