@@ -49,6 +49,7 @@ class _TerlineTPageState extends State<TerlineTPage> with TickerProviderStateMix
   String? _walletAddress;
 
   final String hfSpaceUrl = 'https://tertulianoshow-terlinet.hf.space';
+  final String bubblesUrl = 'https://tertulianonews.github.io/bubbleschain/#/bubbles';
 
   @override
   void initState() {
@@ -121,6 +122,16 @@ class _TerlineTPageState extends State<TerlineTPage> with TickerProviderStateMix
     } catch (e) {
       debugPrint('Erro Mobile Wallet: $e');
       setState(() => _response = "Certifique-se que o app da Phantom está instalado.");
+    }
+  }
+
+  // REDIRECIONAR PARA BUBBLES CHAIN
+  Future<void> _launchBubbles() async {
+    final Uri url = Uri.parse(bubblesUrl);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      setState(() => _response = "Não foi possível abrir o link da Bubbles Chain.");
     }
   }
 
@@ -281,7 +292,7 @@ class _TerlineTPageState extends State<TerlineTPage> with TickerProviderStateMix
                         ),
                       ),
 
-                      // BOLHA REALÍSTICA COM ÓRBITA
+                      // BOLHA WALLET (METAMASK/PHANTOM)
                       AnimatedBuilder(
                         animation: _bubbleController,
                         builder: (context, child) {
@@ -290,93 +301,31 @@ class _TerlineTPageState extends State<TerlineTPage> with TickerProviderStateMix
                             right: 10,
                             child: GestureDetector(
                               onTap: _connectWallet,
-                              child: SizedBox(
-                                width: 150,
-                                height: 150,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        gradient: RadialGradient(
-                                          colors: [
-                                            Colors.white.withOpacity(0.05),
-                                            Colors.blue.withOpacity(0.1),
-                                            Colors.purple.withOpacity(0.2),
-                                            Colors.pink.withOpacity(0.2),
-                                            Colors.cyan.withOpacity(0.3),
-                                            Colors.transparent,
-                                          ],
-                                          stops: const [0.0, 0.4, 0.7, 0.85, 0.95, 1.0],
-                                          center: const Alignment(-0.2, -0.2),
-                                        ),
-                                        border: Border.all(
-                                          color: Colors.white.withOpacity(0.4),
-                                          width: 0.8,
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.cyan.withOpacity(0.2),
-                                            blurRadius: 15,
-                                            spreadRadius: 2,
-                                          ),
-                                        ],
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          PositionPoint(top: 15, left: 25, size: 15, opacity: 0.6),
-                                          PositionPoint(bottom: 15, right: 20, size: 8, opacity: 0.3),
-                                          Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                _walletAddress == null 
-                                                    ? "🦊"
-                                                    : "${_walletAddress!.substring(0, 4)}..${_walletAddress!.substring(_walletAddress!.length - 4)}",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: _walletAddress == null ? 32 : 11, 
-                                                  color: Colors.white, 
-                                                  fontWeight: FontWeight.w500,
-                                                  shadows: const [Shadow(color: Colors.black26, blurRadius: 2)],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    
-                                    AnimatedBuilder(
-                                      animation: _murmurationController,
-                                      builder: (context, child) {
-                                        final double angle = _murmurationController.value * 2 * math.pi;
-                                        const double radius = 68.0;
-                                        return Transform.translate(
-                                          offset: Offset(
-                                            math.cos(angle) * radius,
-                                            math.sin(angle) * radius,
-                                          ),
-                                          child: const Text(
-                                            'Wallet',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              shadows: [
-                                                Shadow(color: Colors.black, blurRadius: 4),
-                                                Shadow(color: Colors.cyanAccent, blurRadius: 1),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
+                              child: _buildBubble(
+                                label: 'Wallet',
+                                content: _walletAddress == null 
+                                    ? "🦊"
+                                    : "${_walletAddress!.substring(0, 4)}..${_walletAddress!.substring(_walletAddress!.length - 4)}",
+                                contentSize: _walletAddress == null ? 32 : 11,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+
+                      // BOLHA BUBBLES (REDIRECIONAMENTO)
+                      AnimatedBuilder(
+                        animation: _bubbleController,
+                        builder: (context, child) {
+                          return Positioned(
+                            top: 20 + (_bubbleController.value * 20),
+                            left: 10,
+                            child: GestureDetector(
+                              onTap: _launchBubbles,
+                              child: _buildBubble(
+                                label: 'Bubbles',
+                                content: "🫧",
+                                contentSize: 32,
                               ),
                             ),
                           );
@@ -405,14 +354,98 @@ class _TerlineTPageState extends State<TerlineTPage> with TickerProviderStateMix
       ),
     );
   }
-}
 
-class PositionPoint extends StatelessWidget {
-  final double? top, left, right, bottom;
-  final double size, opacity;
-  PositionPoint({this.top, this.left, this.right, this.bottom, required this.size, required this.opacity});
-  @override
-  Widget build(BuildContext context) {
+  // WIDGET AUXILIAR PARA CRIAR AS BOLHAS
+  Widget _buildBubble({required String label, required String content, required double contentSize}) {
+    return SizedBox(
+      width: 150,
+      height: 150,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  Colors.white.withOpacity(0.05),
+                  Colors.blue.withOpacity(0.1),
+                  Colors.purple.withOpacity(0.2),
+                  Colors.pink.withOpacity(0.2),
+                  Colors.cyan.withOpacity(0.3),
+                  Colors.transparent,
+                ],
+                stops: const [0.0, 0.4, 0.7, 0.85, 0.95, 1.0],
+                center: const Alignment(-0.2, -0.2),
+              ),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.4),
+                width: 0.8,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.cyan.withOpacity(0.2),
+                  blurRadius: 15,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: Stack(
+              children: [
+                _buildPositionPoint(top: 15, left: 25, size: 15, opacity: 0.6),
+                _buildPositionPoint(bottom: 15, right: 20, size: 8, opacity: 0.3),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      content,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: contentSize, 
+                        color: Colors.white, 
+                        fontWeight: FontWeight.w500,
+                        shadows: const [Shadow(color: Colors.black26, blurRadius: 2)],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          AnimatedBuilder(
+            animation: _murmurationController,
+            builder: (context, child) {
+              final double angle = _murmurationController.value * 2 * math.pi;
+              const double radius = 68.0;
+              return Transform.translate(
+                offset: Offset(
+                  math.cos(angle) * radius,
+                  math.sin(angle) * radius,
+                ),
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(color: Colors.black, blurRadius: 4),
+                      Shadow(color: Colors.cyanAccent, blurRadius: 1),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPositionPoint({double? top, double? left, double? right, double? bottom, required double size, required double opacity}) {
     return Positioned(
       top: top, left: left, right: right, bottom: bottom,
       child: Container(
