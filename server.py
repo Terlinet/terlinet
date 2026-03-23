@@ -20,23 +20,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Chave do Groq fornecida (gsk_...)
+# Chave do Groq fornecida
 GROQ_API_KEY = "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"
 
-# Usando o Groq (100% gratuito no limite do plano deles e extremamente rápido)
+# Cliente Groq
 client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
     api_key=GROQ_API_KEY,
 )
 
-# Modelo Llama 3.3 no Groq: Eficiente e gratuito
 MODEL_NAME = "llama-3.3-70b-versatile"
 
 class Query(BaseModel):
     text: str
     is_agent: bool = False
 
-# Mapeamento para TradingView (Símbolos)
 TV_SYMBOLS = {
     "bitcoin": "BINANCE:BTCUSDT", "btc": "BINANCE:BTCUSDT",
     "ethereum": "BINANCE:ETHUSDT", "eth": "BINANCE:ETHUSDT",
@@ -76,10 +74,12 @@ async def get_market_data(text: str):
                             )
                             found_data.append(info)
                 except Exception: pass
-    return " | ".join(found_data) if found_data else "Dados indisponíveis."
+    return " | ".join(found_data) if found_data else "Dados indisponíveis no momento."
 
 async def generate_voice_base64(text: str, is_agent: bool):
     try:
+        # Garante que não enviamos texto vazio
+        if not text.strip(): return None
         voice = "pt-BR-AntonioNeural" if is_agent else "pt-BR-FranciscaNeural"
         communicate = edge_tts.Communicate(text, voice)
         audio_data = b""
@@ -87,7 +87,8 @@ async def generate_voice_base64(text: str, is_agent: bool):
             if chunk["type"] == "audio":
                 audio_data += chunk["data"]
         return base64.b64encode(audio_data).decode('utf-8')
-    except:
+    except Exception as e:
+        print(f"Erro TTS: {e}")
         return None
 
 @app.post('/query')
@@ -97,6 +98,7 @@ async def query(q: Query):
         chart_symbol = None
         interval = "60"
         text_lower = q.text.lower()
+        
         for name, symbol in TV_SYMBOLS.items():
             if name in text_lower:
                 chart_symbol = symbol
@@ -106,7 +108,6 @@ async def query(q: Query):
         elif "4" in text_lower and "hora" in text_lower: interval = "240"
         elif "1" in text_lower and "dia" in text_lower: interval = "D"
 
-        # PivotPointsStandard para ALVOS (R1, R2, S1, S2)
         indicators_list = [
             "BB@tv-basicstudies",
             "SuperTrend@tv-basicstudies",
@@ -117,31 +118,35 @@ async def query(q: Query):
             persona = (
                 "Você é o Bee, analista trader da TerlineT. Comece com 'Bee informando: '. "
                 "Sua missão é projetar ALVOS de preço. "
-                "Explique que as linhas horizontais R1 e R2 no gráfico são os alvos de alta (resistência), "
-                "e as linhas S1 e S2 são os suportes de baixa (onde o preço pode cair)."
+                "Explique que as linhas horizontais R1 e R2 no gráfico são os alvos de alta, "
+                "e as linhas S1 e S2 são os suportes de baixa."
             )
         else:
-            persona = "Você é a TerlineT, uma IA informativa."
+            persona = "Você é a TerlineT, uma inteligência artificial informativa e elegante. Seja direta e prestativa."
 
-        system_instruction = f"{persona}\n\nCONTEXTO DO MERCADO: {market_context}\n\nResponda em português, sem emojis."
+        system_instruction = f"{persona}\n\nCONTEXTO DO MERCADO: {market_context}\n\nResponda em português de forma natural."
 
-        messages = [{"role": "system", "content": system_instruction}, {"role": "user", "content": q.text}]
-
-        # Chamada da API Groq
-        completion = client.chat.completions.create(
+        # Usando run_in_executor para não travar o loop de eventos com a chamada síncrona da OpenAI
+        loop = asyncio.get_event_loop()
+        completion = await loop.run_in_executor(None, lambda: client.chat.completions.create(
             model=MODEL_NAME,
-            messages=messages,
+            messages=[{"role": "system", "content": system_instruction}, {"role": "user", "content": q.text}],
             max_tokens=500
-        )
+        ))
 
         text_response = completion.choices[0].message.content.strip()
-        clean_text = re.sub(r'[^\w\s,.?!áàâãéèêíïóôõöúçÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇ-]', '', text_response)
+        
+        # Regex melhorada: Mantém letras, números, espaços e pontuação básica (incluindo : , $ e %)
+        clean_text = re.sub(r'[^a-zA-Z0-9\s,.?!:;$%áàâãéèêíïóôõöúçÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇ\-]', '', text_response)
 
         audio_base64 = await generate_voice_base64(clean_text, q.is_agent)
-        show_chart = any(word in text_lower for word in ["gráfico", "grafico", "análise", "analise", "preço", "tendência", "alvo"])
+        
+        # Lógica para mostrar gráfico
+        keywords_chart = ["gráfico", "grafico", "análise", "analise", "preço", "tendência", "alvo", "btc", "eth", "sol"]
+        show_chart = any(word in text_lower for word in keywords_chart)
 
         return {
-            "text": clean_text,
+            "text": text_response, # Retornamos o texto original para o chat ficar bonito
             "audio": audio_base64,
             "chart_symbol": chart_symbol if (chart_symbol and show_chart) else None,
             "interval": interval,
@@ -149,7 +154,8 @@ async def query(q: Query):
             "show_tools": True
         }
     except Exception as e:
-        return {"text": f"Bee informando: Erro de API ({str(e)}).", "audio": None}
+        error_msg = f"{'Bee informando' if q.is_agent else 'TerlineT'}: Erro de conexão com a inteligência ({str(e)})."
+        return {"text": error_msg, "audio": None}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=7860)
